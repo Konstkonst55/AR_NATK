@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "999108823420",
+    "project_id": "arnatk-b5bff",
+    "storage_bucket": "arnatk-b5bff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:999108823420:android:9e3228ca89c7f1cc5a7cf9",
+        "android_client_info": {
+          "package_name": "com.example.ar_natk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "999108823420-pjlh22gdggdv5gqphhhufu0tnb67jiec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCNV8VxLCfGYA5wGya8jNh5R1PvG5zWBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "999108823420-pjlh22gdggdv5gqphhhufu0tnb67jiec.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

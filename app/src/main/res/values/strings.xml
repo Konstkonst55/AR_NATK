@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">AR NATK</string>
+
+    <string name="title_camera">Камера</string>
+    <string name="title_collection">Коллеция</string>
+
+    <string name="cd_fab_add">add</string>
+
+    <string name="fab_add">Добавить</string>
+    <string name="cd_logo">logo</string>
+    <string name="t_number_1">1</string>
+    <string name="fab_pon">Понятно</string>
+    <string name="t_step_1">Ищи метки по всему колледжу</string>
+    <string name="hint_name">Имя</string>
+    <string name="t_number_2">2</string>
+    <string name="t_step_2">Сканируй найденные метки и добавляй их в коллекцию</string>
+    <string name="t_number_3">3</string>
+    <string name="t_step_3">Собери всю коллекцию</string>
+    <string name="t_input_name">Введите имя</string>
+    <string name="fab_ready">Готово</string>
+    <string name="cd_ready">ready</string>
+    <string name="t_connection_error">Что-то пошло не так</string>
+    <string name="t_empty_input_error">Введите имя</string>
+    <string name="cd_collection_item">collection item</string>
+</resources>
