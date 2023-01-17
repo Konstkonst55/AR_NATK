@@ -11,16 +11,16 @@ import com.example.ar_natk.R
 import com.example.ar_natk.data.models.ItemModel
 import com.example.ar_natk.databinding.FragmentCameraBinding
 import com.example.ar_natk.presentation.core.MainActivity
-import com.example.ar_natk.utils.toBitmap
 import com.google.android.material.snackbar.Snackbar
-import com.google.ar.core.*
+import com.google.ar.core.AugmentedImage
+import com.google.ar.core.AugmentedImageDatabase
+import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.Sceneform
 import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
-import com.google.ar.sceneform.ux.BaseArFragment
 import com.google.ar.sceneform.ux.InstructionsController
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.serialization.decodeFromString
@@ -29,8 +29,8 @@ import java.util.concurrent.CompletableFuture
 
 
 class CameraFragment :
-    Fragment(),
-    BaseArFragment.OnSessionConfigurationListener {
+    Fragment() {
+//    BaseArFragment.OnSessionConfigurationListener {
 
     private lateinit var binding: FragmentCameraBinding
 
@@ -54,7 +54,7 @@ class CameraFragment :
         if (Sceneform.isSupported(context)) {
             initItems()
             arFragment = childFragmentManager.findFragmentById(R.id.ArFragment) as ArFragment
-            arFragment!!.setOnSessionConfigurationListener(this)
+            //arFragment!!.setOnSessionConfigurationListener(this)
         }
 
         return binding.root
@@ -70,22 +70,22 @@ class CameraFragment :
             .use { it.readText() }
     }
 
-    override fun onSessionConfiguration(session: Session?, config: Config?) {
-        config!!.planeFindingMode = Config.PlaneFindingMode.DISABLED
-
-        database = AugmentedImageDatabase(session)
-
-        itemCollectionList.toList().forEach { item ->
-            database!!.addImage(
-                item.targetImageTag,
-                item.targetImage.toBitmap(requireContext())
-            )
-        }
-
-        config.setAugmentedImageDatabase(database)
-
-        arFragment!!.setOnAugmentedImageUpdateListener(this::onAugmentedImageTrackingUpdate)
-    }
+//    override fun onSessionConfiguration(session: Session?, config: Config?) {
+//        config!!.planeFindingMode = Config.PlaneFindingMode.DISABLED
+//
+//        database = AugmentedImageDatabase(session)
+//
+//        itemCollectionList.toList().forEach { item ->
+//            database!!.addImage(
+//                item.targetImageTag,
+//                item.targetImage.toBitmap(requireContext())
+//            )
+//        }
+//
+//        config.setAugmentedImageDatabase(database)
+//
+//        arFragment!!.setOnAugmentedImageUpdateListener(this::onAugmentedImageTrackingUpdate)
+//    }
 
     private fun onAugmentedImageTrackingUpdate(augmentedImage: AugmentedImage) {
         if (augmentedImage.trackingState == TrackingState.TRACKING

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_regular"
         android:textSize="20sp"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintStart_toEndOf="@+id/tvUserPlace"

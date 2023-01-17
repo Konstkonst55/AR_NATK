@@ -9,4 +9,11 @@ object Constants {
     const val USER_ID_KEY = "user_id_key"
 
     const val DEF_TYPE_DRAWABLE = "drawable"
+
+    const val LOG_FIREBASE = "firebase"
+
+    const val FIRE_DOC_USER_NAME = "name"
+    const val FIRE_DOC_USER_SCORE = "count"
+    const val FIRE_DOC_USER_DATE = "date"
+    const val FIRE_COLLECTION_USER = "users"
 }

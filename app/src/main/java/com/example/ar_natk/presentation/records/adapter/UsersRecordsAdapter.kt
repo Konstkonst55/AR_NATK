@@ -1,5 +1,6 @@
 package com.example.ar_natk.presentation.records.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,19 +15,25 @@ class UsersRecordsAdapter(
 
     lateinit var view: View
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = userList[position]
 
         with(holder) {
             userName.text = user.userName
             userScore.text = user.userScore.toString()
-            userPlace.text = itemId.toString()
+            userPlace.text = (position + 1).toString()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        view =
-            LayoutInflater.from(parent.context).inflate(R.layout.record_item_layout, parent, false)
+        view = LayoutInflater.from(parent.context)
+            .inflate(
+                R.layout.record_item_layout,
+                parent,
+                false
+            )
+
         return ViewHolder(view)
     }
 

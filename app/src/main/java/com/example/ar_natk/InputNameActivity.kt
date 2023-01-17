@@ -10,6 +10,7 @@ import com.example.ar_natk.databinding.ActivityInputNameBinding
 import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.utils.DeviceName
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -45,7 +46,8 @@ class InputNameActivity : AppCompatActivity() {
         val user = hashMapOf(
             "name" to name,
             "count" to 0,
-            "device" to DeviceName.deviceName()
+            "device" to DeviceName.deviceName(),
+            "date" to Timestamp.now()
         )
 
         db.collection("users")
