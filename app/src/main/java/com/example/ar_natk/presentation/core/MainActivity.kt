@@ -37,7 +37,9 @@ class MainActivity : AppCompatActivity() {
     private fun setupAppBar() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_camera, R.id.navigation_collection
+                R.id.navigation_camera,
+                R.id.navigation_collection,
+                R.id.navigation_records
             )
         )
 

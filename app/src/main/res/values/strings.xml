@@ -22,4 +22,5 @@
     <string name="t_connection_error">Что-то пошло не так</string>
     <string name="t_empty_input_error">Введите имя</string>
     <string name="cd_collection_item">collection item</string>
+    <string name="title_records">Рейтинг</string>
 </resources>

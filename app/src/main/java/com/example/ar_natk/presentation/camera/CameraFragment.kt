@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.ar_natk.R
-import com.example.ar_natk.data.models.ModelItem
+import com.example.ar_natk.data.models.ItemModel
 import com.example.ar_natk.databinding.FragmentCameraBinding
 import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.utils.toBitmap
@@ -36,7 +36,7 @@ class CameraFragment :
 
     private val fileModelItemPath = "model_item.json"
 
-    private var itemCollectionList: ArrayList<ModelItem> = ArrayList()
+    private var itemCollectionList: ArrayList<ItemModel> = ArrayList()
     private val futures: List<CompletableFuture<Void>> = ArrayList()
     private var arFragment: ArFragment? = null
     private var modelDetected = false
@@ -99,7 +99,7 @@ class CameraFragment :
             }
 
             val anchorNode = AnchorNode(augmentedImage.createAnchor(augmentedImage.centerPose))
-            var currentItemCollection: ModelItem? = null
+            var currentItemCollection: ItemModel? = null
 
             itemCollectionList.toList().forEach { item ->
                 if (augmentedImage.name.equals(item.targetImageTag)) {

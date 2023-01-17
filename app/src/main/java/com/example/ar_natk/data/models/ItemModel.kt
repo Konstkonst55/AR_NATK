@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ModelItem(
+data class ItemModel(
     @SerialName("id") val id: Int,
     @SerialName("targetImageName") val targetImage: String,
     @SerialName("targetImageTag") val targetImageTag: String,
