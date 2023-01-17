@@ -23,4 +23,7 @@
     <string name="t_empty_input_error">Введите имя</string>
     <string name="cd_collection_item">collection item</string>
     <string name="title_records">Рейтинг</string>
+    <string name="title_sharp">#</string>
+    <string name="title_user_name">Имя пользователя</string>
+    <string name="title_score">Количество</string>
 </resources>

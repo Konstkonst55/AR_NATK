@@ -43,13 +43,8 @@ class RecordsFragment : Fragment() {
         binding.pbUserLoader.visibility = View.GONE
     }
 
-    private fun addDecorator() {
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setAdapter()
-        addDecorator()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -76,7 +71,8 @@ class RecordsFragment : Fragment() {
                                 userName = document.data[Constants.FIRE_DOC_USER_NAME].toString(),
                                 userScore = document.data[Constants.FIRE_DOC_USER_SCORE].toString()
                                     .toInt(),
-                                registrationDate = dateFromTimeStamp(document.data[Constants.FIRE_DOC_USER_DATE] as Timestamp)
+                                registrationDate = dateFromTimeStamp(document.data[Constants.FIRE_DOC_USER_DATE] as Timestamp),
+                                id = document.id
                             )
                         )
                         Log.i(Constants.LOG_FIREBASE, document.data.toString())
