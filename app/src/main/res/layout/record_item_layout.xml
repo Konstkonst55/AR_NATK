@@ -3,8 +3,18 @@
     android:id="@+id/clRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/flBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/dark_primary"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glRecordStart"
@@ -27,6 +37,7 @@
         android:gravity="center"
         android:fontFamily="@font/montserrat_bold"
         android:textSize="20sp"
+        android:layout_marginVertical="12dp"
         app:layout_constraintStart_toEndOf="@id/glRecordStart"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -40,6 +51,7 @@
         android:layout_marginHorizontal="16dp"
         android:maxLines="1"
         android:ellipsize="end"
+        android:layout_marginVertical="12dp"
         app:layout_constraintStart_toEndOf="@+id/tvUserPlace"
         app:layout_constraintEnd_toStartOf="@id/tvUserScore"
         app:layout_constraintTop_toTopOf="parent"
@@ -52,6 +64,7 @@
         android:gravity="center"
         android:fontFamily="@font/montserrat_bold"
         android:textSize="20sp"
+        android:layout_marginVertical="12dp"
         app:layout_constraintEnd_toStartOf="@id/glRecordEnd"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
