@@ -1,12 +1,15 @@
-package com.example.ar_natk
+package com.example.ar_natk.presentation.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ar_natk.R
 import com.example.ar_natk.data.storage.FirstRunStorage
 import com.example.ar_natk.data.storage.UserDataStorage
+import com.example.ar_natk.presentation.auth.AuthActivity
 import com.example.ar_natk.presentation.core.MainActivity
+import com.example.ar_natk.presentation.onboard.OnboardActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -26,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             }
             false -> {
                 if (UserDataStorage(this).userName.isNullOrEmpty()) {
-                    startActivity(Intent(this, InputNameActivity::class.java))
+                    startActivity(Intent(this, AuthActivity::class.java))
                     finish()
                 } else {
                     startActivity(Intent(this, MainActivity::class.java))

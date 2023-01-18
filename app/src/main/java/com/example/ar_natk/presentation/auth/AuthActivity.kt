@@ -1,12 +1,13 @@
-package com.example.ar_natk
+package com.example.ar_natk.presentation.auth
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.ar_natk.R
 import com.example.ar_natk.data.storage.UserDataStorage
-import com.example.ar_natk.databinding.ActivityInputNameBinding
+import com.example.ar_natk.databinding.ActivityAuthBinding
 import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.utils.DeviceName
 import com.google.android.material.snackbar.Snackbar
@@ -15,14 +16,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class InputNameActivity : AppCompatActivity() {
+class AuthActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityInputNameBinding
+    private lateinit var binding: ActivityAuthBinding
     private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityInputNameBinding.inflate(layoutInflater)
+        binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         db = Firebase.firestore

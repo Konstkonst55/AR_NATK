@@ -1,10 +1,11 @@
-package com.example.ar_natk
+package com.example.ar_natk.presentation.onboard
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ar_natk.data.storage.UserDataStorage
 import com.example.ar_natk.databinding.ActivityOnboardBinding
+import com.example.ar_natk.presentation.auth.AuthActivity
 import com.example.ar_natk.presentation.core.MainActivity
 
 class OnboardActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class OnboardActivity : AppCompatActivity() {
 
         binding.fabNext.setOnClickListener {
             if (UserDataStorage(this).userName.isNullOrEmpty()) {
-                startActivity(Intent(this, InputNameActivity::class.java))
+                startActivity(Intent(this, AuthActivity::class.java))
                 finish()
             } else {
                 startActivity(Intent(this, MainActivity::class.java))

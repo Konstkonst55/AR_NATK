@@ -27,7 +27,7 @@
 
         <!--INPUT NAME ACTIVITY-->
         <activity
-            android:name=".AuthActivity"
+            android:name=".presentation.auth.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
@@ -38,7 +38,7 @@
 
         <!--ONBOARD ACTIVITY-->
         <activity
-            android:name=".OnboardActivity"
+            android:name=".presentation.onboard.OnboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -47,7 +47,7 @@
 
         <!--SPLASH ACTIVITY-->
         <activity
-            android:name=".SplashActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/splash">
