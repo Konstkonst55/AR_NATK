@@ -7,7 +7,9 @@ import com.example.ar_natk.data.storage.UserDataStorage
 import com.example.ar_natk.databinding.ActivityOnboardBinding
 import com.example.ar_natk.presentation.auth.AuthActivity
 import com.example.ar_natk.presentation.core.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnboardActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardBinding

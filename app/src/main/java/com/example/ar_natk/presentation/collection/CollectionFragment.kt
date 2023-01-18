@@ -6,7 +6,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.ar_natk.databinding.FragmentCollectionBinding
 import com.example.ar_natk.presentation.core.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CollectionFragment : Fragment() {
 
     private lateinit var binding: FragmentCollectionBinding

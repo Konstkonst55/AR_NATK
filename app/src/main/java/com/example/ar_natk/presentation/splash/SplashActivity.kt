@@ -1,6 +1,5 @@
 package com.example.ar_natk.presentation.splash
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +9,11 @@ import com.example.ar_natk.data.storage.UserDataStorage
 import com.example.ar_natk.presentation.auth.AuthActivity
 import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.presentation.onboard.OnboardActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-@SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)

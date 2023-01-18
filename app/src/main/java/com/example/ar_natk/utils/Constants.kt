@@ -16,4 +16,10 @@ object Constants {
     const val FIRE_DOC_USER_SCORE = "count"
     const val FIRE_DOC_USER_DATE = "date"
     const val FIRE_COLLECTION_USER = "users"
+
+    const val VALIDATION_EMPTY = "Поле должно быть заполнено"
+    const val VALIDATION_VALID = "Имя введено верно"
+
+    const val AUTH_FAILURE = "Что-то пошло не так"
+    const val AUTH_SUCCES = "Авторизация успешна"
 }

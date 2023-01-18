@@ -23,11 +23,12 @@ import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.InstructionsController
 import com.google.ar.sceneform.ux.TransformableNode
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.util.concurrent.CompletableFuture
 
-
+@AndroidEntryPoint
 class CameraFragment :
     Fragment() {
 //    BaseArFragment.OnSessionConfigurationListener {
