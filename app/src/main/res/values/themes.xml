@@ -12,8 +12,6 @@
         <item name="android:textColor">@color/white</item>
         <item name="textAppearanceButton">@color/white</item>
         <item name="textAppearanceLabelLarge">@color/white</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="splash" parent="Theme.MaterialComponents.Light.NoActionBar">

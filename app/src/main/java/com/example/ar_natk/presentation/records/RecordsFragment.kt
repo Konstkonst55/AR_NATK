@@ -1,15 +1,15 @@
 package com.example.ar_natk.presentation.records
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.ar_natk.R
 import com.example.ar_natk.data.models.UserModel
 import com.example.ar_natk.databinding.FragmentRecordsBinding
+import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.presentation.records.adapter.UsersRecordsAdapter
 import com.example.ar_natk.utils.Constants
 import com.google.android.material.snackbar.Snackbar
@@ -45,7 +45,20 @@ class RecordsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setAdapter()
+        showStatusBar()
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun showStatusBar() {
+        (activity as MainActivity).window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            (activity as MainActivity).window.insetsController
+                ?.show(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+        } else {
+            (activity as MainActivity).window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_VISIBLE
+        }
     }
 
     private fun setAdapter() {
