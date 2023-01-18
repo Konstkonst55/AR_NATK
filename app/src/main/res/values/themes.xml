@@ -14,9 +14,10 @@
         <item name="textAppearanceLabelLarge">@color/white</item>
     </style>
 
-    <style name="splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_splash</item>
-        <item name="android:statusBarColor">@color/dark_primary</item>
+        <item name="android:statusBarColor">@color/dark_main</item>
+        <item name="colorPrimaryDark">@color/dark_main</item>
     </style>
 
     <style name="fab_main" parent="Theme.MaterialComponents.Light">
