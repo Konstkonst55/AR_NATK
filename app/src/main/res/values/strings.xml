@@ -26,4 +26,7 @@
     <string name="title_sharp">#</string>
     <string name="title_user_name">Имя пользователя</string>
     <string name="title_score">Количество</string>
+    <string name="t_congratulate">Поздравляем!</string>
+    <string name="t_all_collection">Вы собрали всю коллекцию</string>
+    <string name="cd_all_collection">icon OK</string>
 </resources>
