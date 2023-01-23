@@ -10,6 +10,8 @@ data class ItemModel(
     @SerialName("targetImageTag") val targetImageTag: String,
     @SerialName("modelPath") val modelPath: String? = "nullModel.glb",
     @SerialName("infoHeader") val infoHeader: String? = null,
-    @SerialName("infoText") val infoText: String? = null
+    @SerialName("infoText") val infoText: String? = null,
+    @SerialName("previewImage") val previewImage: String? = null,
+    @SerialName("wikiUrl") val wikiUrl: String? = null
 )
 

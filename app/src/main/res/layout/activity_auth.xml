@@ -60,7 +60,7 @@
         app:errorEnabled="true"
         app:errorTextColor="@color/error"
         app:hintTextColor="@color/gray_sec"
-        app:layout_constraintBottom_toTopOf="@id/fabReady"
+        app:layout_constraintBottom_toTopOf="@id/bReady"
         app:layout_constraintEnd_toStartOf="@id/glNameEnd"
         app:layout_constraintStart_toEndOf="@id/glNameStart"
         app:layout_constraintTop_toTopOf="parent"
@@ -77,9 +77,9 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabReady"
-        style="@style/fab_main"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bReady"
+        style="@style/Button.Main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/cd_ready"

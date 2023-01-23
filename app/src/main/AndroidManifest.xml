@@ -46,22 +46,11 @@
                 android:value="" />
         </activity>
 
-        <!--SPLASH ACTIVITY-->
-        <activity
-            android:name=".presentation.splash.SplashActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/splash">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
         <!--MAIN ACTIVITY-->
         <activity
             android:screenOrientation="portrait"
             android:name=".presentation.core.MainActivity"
-            android:theme="@style/splash"
+            android:theme="@style/Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,9 +4,9 @@
     <string name="title_camera">Камера</string>
     <string name="title_collection">Коллеция</string>
 
-    <string name="cd_fab_add">add</string>
+    <string name="cd_b_add">add</string>
 
-    <string name="fab_add">Добавить</string>
+    <string name="b_add">Добавить</string>
     <string name="cd_logo">logo</string>
     <string name="t_number_1">1</string>
     <string name="fab_pon">Понятно</string>
@@ -29,4 +29,10 @@
     <string name="t_congratulate">Поздравляем!</string>
     <string name="t_all_collection">Вы собрали всю коллекцию</string>
     <string name="cd_all_collection">icon OK</string>
+    <string name="cd_item_info">Item Image</string>
+    <string name="cd_b_info">Read information</string>
+    <string name="b_info">Информация</string>
+    <string name="cd_link">Open Wikipedia</string>
+    <string name="cd_controller">Controller</string>
+    <string name="cd_open_ondoarding">Open on boarding</string>
 </resources>

@@ -10,7 +10,7 @@ fun String.toBitmap(context: Context): Bitmap? {
 }
 
 @SuppressLint("DiscouragedApi")
-private fun String.toResourceId(context: Context): Int {
+fun String.toResourceId(context: Context): Int {
     return context.resources.getIdentifier(
         this,
         Constants.DEF_TYPE_DRAWABLE,

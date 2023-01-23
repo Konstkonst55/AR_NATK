@@ -21,6 +21,7 @@
     <color name="purple_accent_ripple">#4D7B40A9</color>
     <color name="green_accent">#00A64C</color>
     <color name="error">#CC2D3A</color>
+    <color name="white_ripple">#4DFFFFFF</color>
     <!--Other-->
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFFFFF</color>
 </resources>

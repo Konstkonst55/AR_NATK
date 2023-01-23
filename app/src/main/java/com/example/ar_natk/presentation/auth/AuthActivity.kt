@@ -31,7 +31,7 @@ class AuthActivity : AppCompatActivity() {
         db = Firebase.firestore
         hideProgress()
 
-        binding.fabReady.setOnClickListener {
+        binding.bReady.setOnClickListener {
             if (binding.etName.text.isNullOrEmpty()) {
                 binding.tilUserName.error = getString(R.string.t_empty_input_error)
             } else {

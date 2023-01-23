@@ -1,16 +1,21 @@
 package com.example.ar_natk.presentation.camera
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.ar_natk.R
 import com.example.ar_natk.data.models.ItemModel
 import com.example.ar_natk.databinding.FragmentCameraBinding
 import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.utils.toBitmap
+import com.example.ar_natk.utils.toResourceId
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.google.ar.core.*
 import com.google.ar.sceneform.AnchorNode
@@ -25,7 +30,6 @@ import com.google.ar.sceneform.ux.TransformableNode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import java.util.concurrent.CompletableFuture
 
 @AndroidEntryPoint
 class CameraFragment :
@@ -33,24 +37,28 @@ class CameraFragment :
     BaseArFragment.OnSessionConfigurationListener {
 
     private val fileModelItemPath = "model_item.json"
-    private val futures: List<CompletableFuture<Void>> = ArrayList()
     private val nullModelPath = "nullModel.glb"
 
     private var modelDetected = false
     private var itemCollectionList: ArrayList<ItemModel> = ArrayList()
+    private var currentItemCollection: ItemModel? = null
 
     private lateinit var arFragment: ArFragment
     private lateinit var anchorNode: AnchorNode
     private lateinit var binding: FragmentCameraBinding
-    private lateinit var currentItemCollection: ItemModel
     private lateinit var database: AugmentedImageDatabase
+    private lateinit var bsbInfo: BottomSheetBehavior<ConstraintLayout>
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCameraBinding.inflate(inflater, container, false)
+        bsbInfo = BottomSheetBehavior.from(binding.incBottomSheet.root)
+        bsbInfo.state = BottomSheetBehavior.STATE_HIDDEN
+        buttonsIsEnabled(false)
 
         (requireActivity() as MainActivity).supportActionBar?.hide()
 
@@ -60,12 +68,43 @@ class CameraFragment :
             arFragment.setOnSessionConfigurationListener(this)
         }
 
-        binding.fabAdd.setOnClickListener {
+        binding.bAdd.setOnClickListener {
             Snackbar.make(
                 arFragment.requireView(),
-                "item ${currentItemCollection.targetImageTag} added",
+                "item ${currentItemCollection?.targetImageTag} added",
                 Snackbar.LENGTH_LONG
             ).show()
+        }
+
+        binding.bInfo.setOnClickListener {
+            with(binding.incBottomSheet) {
+                tvHeaderInfo.text = currentItemCollection?.infoHeader
+                tvInfo.text = currentItemCollection?.infoText
+                currentItemCollection?.previewImage?.toResourceId(requireContext())?.let { img ->
+                    ivImageInfo.setImageResource(img)
+                }
+            }
+
+            arFragment.pause()
+            //binding.ArFragment.visibility = View.INVISIBLE
+
+            bsbInfo.state = if (bsbInfo.state == BottomSheetBehavior.STATE_EXPANDED)
+                BottomSheetBehavior.STATE_COLLAPSED else BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        bsbInfo.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    arFragment.resume()
+                    //binding.ArFragment.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+        })
+
+        binding.incBottomSheet.iLink.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(currentItemCollection?.wikiUrl)))
         }
 
         return binding.root
@@ -105,7 +144,8 @@ class CameraFragment :
         ) {
             if (modelDetected) {
                 arFragment.instructionsController.setEnabled(
-                    InstructionsController.TYPE_AUGMENTED_IMAGE_SCAN, false
+                    InstructionsController.TYPE_AUGMENTED_IMAGE_SCAN,
+                    false
                 )
                 return
             }
@@ -113,10 +153,11 @@ class CameraFragment :
             itemCollectionList.toList().forEach { item ->
                 if (augmentedImage.name.equals(item.targetImageTag)) {
                     currentItemCollection = item
-                    binding.fabAdd.isEnabled = true
+                    buttonsIsEnabled(true)
+
                     Snackbar.make(
                         arFragment.requireView(),
-                        "Tag ${currentItemCollection.targetImageTag} detected",
+                        "Tag ${currentItemCollection?.targetImageTag} detected",
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
@@ -135,7 +176,7 @@ class CameraFragment :
                     .setSource(
                         context,
                         Uri.parse(
-                            currentItemCollection.modelPath ?: nullModelPath
+                            currentItemCollection?.modelPath ?: nullModelPath
                         ) //todo сделать нулевую модельку
                     )
                     .setIsFilamentGltf(true)
@@ -161,9 +202,11 @@ class CameraFragment :
         }
     }
 
-    private fun clearFutures() {
-        futures.toList().forEach { future ->
-            if (!future.isDone) future.cancel(true)
+    private fun buttonsIsEnabled(enabled: Boolean) {
+        with(binding) {
+            bInfo.isEnabled = enabled
+            bAdd.isEnabled = enabled
         }
     }
+
 }

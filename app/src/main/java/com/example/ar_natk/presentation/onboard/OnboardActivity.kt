@@ -19,7 +19,7 @@ class OnboardActivity : AppCompatActivity() {
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.fabNext.setOnClickListener {
+        binding.bNext.setOnClickListener {
             if (UserDataStorage(this).userName.isNullOrEmpty()) {
                 startActivity(Intent(this, AuthActivity::class.java))
                 finish()

@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/ivOnboardLogo"
-        app:layout_constraintBottom_toTopOf="@id/fabNext"
+        app:layout_constraintBottom_toTopOf="@id/bNext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -50,7 +50,7 @@
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                style="@style/tv_number"
+                style="@style/TextView.Number"
                 android:text="@string/t_number_1"
                 android:textColor="@color/blue_accent" />
 
@@ -74,7 +74,7 @@
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                style="@style/tv_number"
+                style="@style/TextView.Number"
                 android:text="@string/t_number_2"
                 android:textColor="@color/green_accent" />
 
@@ -97,7 +97,7 @@
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                style="@style/tv_number"
+                style="@style/TextView.Number"
                 android:text="@string/t_number_3"
                 android:textColor="@color/purple_accent" />
 
@@ -113,11 +113,11 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fabNext"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/fab_main"
+        style="@style/Button.Main"
         android:text="@string/fab_pon"
         app:layout_constraintBottom_toTopOf="@id/glOnboardBottom"
         app:layout_constraintStart_toStartOf="parent"
