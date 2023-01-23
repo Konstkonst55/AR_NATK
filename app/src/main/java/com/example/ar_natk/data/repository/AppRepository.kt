@@ -30,6 +30,7 @@ class AppRepository @Inject constructor(
                 if (name != null) {
                     saveUserData(name, it.id)
                 }
+                //todo исправить
                 state = AuthState.SUCCESS
             }
             .addOnFailureListener {

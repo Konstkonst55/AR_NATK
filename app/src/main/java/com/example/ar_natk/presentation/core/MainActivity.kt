@@ -1,8 +1,11 @@
 package com.example.ar_natk.presentation.core
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -30,6 +33,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.tbMain)
+
+        if (ActivityCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        )
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 0)
 
         checkRun()
     }

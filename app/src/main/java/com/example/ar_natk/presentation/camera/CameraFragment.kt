@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.ar_natk.R
 import com.example.ar_natk.data.models.ItemModel
@@ -33,15 +32,18 @@ class CameraFragment :
     Fragment(),
     BaseArFragment.OnSessionConfigurationListener {
 
-    private lateinit var binding: FragmentCameraBinding
-
     private val fileModelItemPath = "model_item.json"
-
-    private var itemCollectionList: ArrayList<ItemModel> = ArrayList()
     private val futures: List<CompletableFuture<Void>> = ArrayList()
-    private var arFragment: ArFragment? = null
+    private val nullModelPath = "nullModel.glb"
+
     private var modelDetected = false
-    private var database: AugmentedImageDatabase? = null
+    private var itemCollectionList: ArrayList<ItemModel> = ArrayList()
+
+    private lateinit var arFragment: ArFragment
+    private lateinit var anchorNode: AnchorNode
+    private lateinit var binding: FragmentCameraBinding
+    private lateinit var currentItemCollection: ItemModel
+    private lateinit var database: AugmentedImageDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +57,15 @@ class CameraFragment :
         if (Sceneform.isSupported(context)) {
             initItems()
             arFragment = childFragmentManager.findFragmentById(R.id.ArFragment) as ArFragment
-            arFragment!!.setOnSessionConfigurationListener(this)
+            arFragment.setOnSessionConfigurationListener(this)
+        }
+
+        binding.fabAdd.setOnClickListener {
+            Snackbar.make(
+                arFragment.requireView(),
+                "item ${currentItemCollection.targetImageTag} added",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
 
         return binding.root
@@ -73,20 +83,20 @@ class CameraFragment :
 
     override fun onSessionConfiguration(session: Session?, config: Config?) {
         config!!.planeFindingMode = Config.PlaneFindingMode.DISABLED
+        config.lightEstimationMode = Config.LightEstimationMode.DISABLED
 
         database = AugmentedImageDatabase(session)
 
         itemCollectionList.toList().forEach { item ->
-            database!!.addImage(
+            database.addImage(
                 item.targetImageTag,
                 item.targetImage.toBitmap(requireContext())
             )
         }
 
-        config.setAugmentedImageDatabase(database)
+        config.augmentedImageDatabase = database
 
-        arFragment!!.arSceneView.isFocusableInTouchMode = true
-        arFragment!!.setOnAugmentedImageUpdateListener(this::onAugmentedImageTrackingUpdate)
+        arFragment.setOnAugmentedImageUpdateListener(this::onAugmentedImageTrackingUpdate)
     }
 
     private fun onAugmentedImageTrackingUpdate(augmentedImage: AugmentedImage) {
@@ -94,72 +104,59 @@ class CameraFragment :
             && augmentedImage.trackingMethod == AugmentedImage.TrackingMethod.FULL_TRACKING
         ) {
             if (modelDetected) {
-                arFragment!!.instructionsController.setEnabled(
+                arFragment.instructionsController.setEnabled(
                     InstructionsController.TYPE_AUGMENTED_IMAGE_SCAN, false
                 )
                 return
             }
 
-            val anchorNode = AnchorNode(augmentedImage.createAnchor(augmentedImage.centerPose))
-            var currentItemCollection: ItemModel? = null
-
             itemCollectionList.toList().forEach { item ->
                 if (augmentedImage.name.equals(item.targetImageTag)) {
                     currentItemCollection = item
+                    binding.fabAdd.isEnabled = true
                     Snackbar.make(
-                        arFragment?.requireView() ?: binding.root,
-                        "Tag ${currentItemCollection!!.targetImageTag} detected",
-                        Toast.LENGTH_LONG
+                        arFragment.requireView(),
+                        "Tag ${currentItemCollection.targetImageTag} detected",
+                        Snackbar.LENGTH_LONG
                     ).show()
                 }
             }
 
+            anchorNode = AnchorNode(augmentedImage.createAnchor(augmentedImage.centerPose))
+
             if (!modelDetected) { //это поправить
                 modelDetected = true
-                clearFutures()
-
-                binding.fabAdd.isEnabled = true
-                binding.fabAdd.setOnClickListener {
-                    Snackbar.make(
-                        arFragment?.requireView() ?: binding.root,
-                        "item ${currentItemCollection!!.targetImageTag} added",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
 
                 anchorNode.worldScale = Vector3(0.2f, 0.2f, 0.2f)
                 anchorNode.localRotation = Quaternion.axisAngle(Vector3(1.0f, 0f, 0f), 90f)
-                arFragment!!.arSceneView.scene.addChild(anchorNode)
+                arFragment.arSceneView.scene.addChild(anchorNode)
 
-                futures.toMutableList().add(
-                    ModelRenderable.builder()
-                        .setSource(
-                            context,
-                            Uri.parse(currentItemCollection?.modelPath ?: "nullModel.glb")
-                        )
-                        .setIsFilamentGltf(true)
-                        .build()
-                        .thenAccept { model: ModelRenderable? ->
-                            val modelNode = TransformableNode(
-                                arFragment!!.transformationSystem
-                            )
-                            modelNode.renderable = model
-                            anchorNode.addChild(modelNode)
-                        }
-                        .exceptionally {
-                            Snackbar.make(
-                                arFragment?.requireView() ?: binding.root,
-                                "Unable to load model",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            null
-                        }
-                )
+                ModelRenderable.builder()
+                    .setSource(
+                        context,
+                        Uri.parse(
+                            currentItemCollection.modelPath ?: nullModelPath
+                        ) //todo сделать нулевую модельку
+                    )
+                    .setIsFilamentGltf(true)
+                    .build()
+                    .thenAccept { model: ModelRenderable? ->
+                        val modelNode = TransformableNode(arFragment.transformationSystem)
+                        modelNode.renderable = model
+                        anchorNode.addChild(modelNode)
+                    }
+                    .exceptionally {
+                        Snackbar.make(
+                            arFragment.requireView(),
+                            "Unable to load model",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        null
+                    }
             }
         } else if (augmentedImage.trackingState == TrackingState.PAUSED
             || augmentedImage.trackingState == TrackingState.STOPPED
         ) {
-            clearFutures()
             modelDetected = false
         }
     }
@@ -168,10 +165,5 @@ class CameraFragment :
         futures.toList().forEach { future ->
             if (!future.isDone) future.cancel(true)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        clearFutures()
     }
 }
