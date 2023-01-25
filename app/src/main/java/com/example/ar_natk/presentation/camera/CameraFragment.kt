@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.ar_natk.R
 import com.example.ar_natk.data.models.ItemModel
+import com.example.ar_natk.data.storage.UserDataStorage
 import com.example.ar_natk.databinding.FragmentCameraBinding
 import com.example.ar_natk.presentation.core.MainActivity
+import com.example.ar_natk.utils.Constants
 import com.example.ar_natk.utils.toBitmap
 import com.example.ar_natk.utils.toResourceId
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -27,6 +30,8 @@ import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.BaseArFragment
 import com.google.ar.sceneform.ux.InstructionsController
 import com.google.ar.sceneform.ux.TransformableNode
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -69,11 +74,8 @@ class CameraFragment :
         }
 
         binding.bAdd.setOnClickListener {
-            Snackbar.make(
-                arFragment.requireView(),
-                "item ${currentItemCollection?.targetImageTag} added",
-                Snackbar.LENGTH_LONG
-            ).show()
+            showProgress()
+            saveItem(currentItemCollection?.id)
         }
 
         binding.bInfo.setOnClickListener {
@@ -108,6 +110,53 @@ class CameraFragment :
         }
 
         return binding.root
+    }
+
+    private fun saveItem(id: Int?) { //todo переделать на локальное
+        val setIds = HashSet<String>()
+        setIds.addAll(UserDataStorage(requireContext()).collection!!)
+        setIds.add(id.toString())
+        UserDataStorage(requireContext()).collection = setIds
+        saveToFirestore(setIds)
+    }
+
+    private fun saveToFirestore(hashSet: Set<String>?) {
+        Firebase.firestore.collection(Constants.FIRE_COLLECTION_USER)
+            .document(UserDataStorage(requireContext()).userId.toString())
+            .update(
+                mapOf(
+                    Constants.FIRE_DOC_USER_COLLECTION to hashSet?.toList(),
+                    Constants.FIRE_DOC_USER_SCORE to hashSet?.size.toString()
+                )
+            )
+            .addOnSuccessListener {
+                hideProgress()
+                showSnackbar("Добавлено")
+                Log.i(Constants.LOG_FIREBASE, "Добавлен лист $hashSet")
+            }
+            .addOnFailureListener {
+                hideProgress()
+                showSnackbar("Что-то пошло не так :(")
+                Log.i(Constants.LOG_FIREBASE, it.message.toString())
+            }
+    }
+
+    private fun showSnackbar(text: String) {
+        Snackbar.make(
+            binding.root,
+            text,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+
+    private fun showProgress() {
+        arFragment.pause()
+        binding.pbCameraLoader.visibility = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        arFragment.resume()
+        binding.pbCameraLoader.visibility = View.GONE
     }
 
     private fun initItems() {

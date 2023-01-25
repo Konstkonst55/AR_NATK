@@ -16,6 +16,24 @@ class UserDataStorage @Inject constructor(
             prefs.edit().putString(Constants.USER_NAME_KEY, value).apply()
         }
 
+    var collection: Set<String>?
+        get() = prefs.getStringSet(Constants.USER_COLLECTION_KEY, HashSet())
+        set(hashSet) {
+            prefs.edit().putStringSet(Constants.USER_COLLECTION_KEY, hashSet).apply()
+        }
+
+    var collectionIntegerList: ArrayList<Int>
+        get() {
+            val listIds = ArrayList<Int>()
+            collection?.forEach { str -> str.toIntOrNull()?.let { listIds.add(it) } }
+            return listIds
+        }
+        set(arrayInt) {
+            val stringSet = HashSet<String>()
+            arrayInt.forEach { id -> stringSet.add(id.toString()) }
+            collection = stringSet
+        }
+
     var userId: String?
         get() = prefs.getString(Constants.USER_ID_KEY, null)
         set(value) {

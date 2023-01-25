@@ -24,7 +24,7 @@ class UsersRecordsAdapter(
 
         with(holder) {
             userName.text = user.userName
-            userScore.text = user.userScore.toString()
+            userScore.text = user.count.toString()
             userPlace.text = (position + 1).toString()
             flBg.visibility = if (user.id == userId) View.VISIBLE else View.GONE
         }

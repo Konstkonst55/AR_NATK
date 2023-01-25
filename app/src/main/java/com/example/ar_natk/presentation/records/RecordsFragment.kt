@@ -73,7 +73,6 @@ class RecordsFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getUsers() {
         users = ArrayList()
-
         FirebaseFirestore.getInstance().collection(Constants.FIRE_COLLECTION_USER)
             .orderBy(Constants.FIRE_DOC_USER_SCORE, Query.Direction.DESCENDING)
             .orderBy(Constants.FIRE_DOC_USER_DATE)
@@ -84,7 +83,7 @@ class RecordsFragment : Fragment() {
                         users.add(
                             UserModel(
                                 userName = document.data[Constants.FIRE_DOC_USER_NAME].toString(),
-                                userScore = document.data[Constants.FIRE_DOC_USER_SCORE].toString()
+                                count = document.data[Constants.FIRE_DOC_USER_SCORE].toString()
                                     .toInt(),
                                 registrationDate = dateFromTimeStamp(document.data[Constants.FIRE_DOC_USER_DATE] as Timestamp),
                                 id = document.id
@@ -94,12 +93,8 @@ class RecordsFragment : Fragment() {
                     }
                     adapter.notifyDataSetChanged()
                 } else {
-                    //todo добавить layout empty error
-                    Snackbar.make(
-                        binding.root,
-                        "Здесь пусто",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                    showSnackbar("Здесь пусто")
+                    Log.i(Constants.LOG_FIREBASE, "Сообщение из рекордов: База пустует")
                 }
 
                 hideProgress()
@@ -108,12 +103,16 @@ class RecordsFragment : Fragment() {
                 hideProgress()
                 Log.e(Constants.LOG_FIREBASE, it.message.toString())
                 //todo добавить layout connection error
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.t_connection_error),
-                    Snackbar.LENGTH_LONG
-                ).show()
+                showSnackbar(getString(R.string.t_connection_error))
             }
+    }
+
+    private fun showSnackbar(text: String) {
+        Snackbar.make(
+            binding.root,
+            text,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     private fun dateFromTimeStamp(timeStamp: Timestamp): Date {

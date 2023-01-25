@@ -48,9 +48,10 @@ class AuthActivity : AppCompatActivity() {
 
         val user = hashMapOf(
             "name" to name,
-            "count" to 0,
             "device" to DeviceName.deviceName(),
-            "date" to Timestamp.now()
+            "date" to Timestamp.now(),
+            "count" to 0,
+            "collection" to ArrayList<String>()
         )
 
         db.collection("users")

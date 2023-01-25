@@ -35,6 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvTableTitleUserName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_light"
@@ -62,6 +63,12 @@
         app:layout_constraintEnd_toStartOf="@id/glRecordScreenEnd"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/gTableTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tvTableTitlePlace, tvTableTitleUserName, tvTableTitleUserScore" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUsers"
         android:layout_width="match_parent"
@@ -78,6 +85,7 @@
         android:background="@drawable/bg_progress_bar"
         android:indeterminate="true"
         app:indicatorColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
