@@ -17,7 +17,6 @@ import com.example.ar_natk.databinding.FragmentCameraBinding
 import com.example.ar_natk.presentation.core.MainActivity
 import com.example.ar_natk.utils.Constants
 import com.example.ar_natk.utils.toBitmap
-import com.example.ar_natk.utils.toResourceId
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.google.ar.core.*
@@ -41,7 +40,6 @@ class CameraFragment :
     Fragment(),
     BaseArFragment.OnSessionConfigurationListener {
 
-    private val fileModelItemPath = "model_item.json"
     private val nullModelPath = "nullModel.glb"
 
     private var modelDetected = false
@@ -82,9 +80,11 @@ class CameraFragment :
             with(binding.incBottomSheet) {
                 tvHeaderInfo.text = currentItemCollection?.infoHeader
                 tvInfo.text = currentItemCollection?.infoText
-                currentItemCollection?.previewImage?.toResourceId(requireContext())?.let { img ->
-                    ivImageInfo.setImageResource(img)
-                }
+                ivImageInfo.setImageBitmap(
+                    currentItemCollection?.previewImage?.toBitmap(
+                        requireContext()
+                    )
+                )
             }
 
             arFragment.pause()
@@ -164,7 +164,7 @@ class CameraFragment :
     }
 
     private fun readAssets(): String {
-        return requireContext().assets.open(fileModelItemPath)
+        return requireContext().assets.open(Constants.MODEL_ITEM_FILE_PATH)
             .bufferedReader()
             .use { it.readText() }
     }

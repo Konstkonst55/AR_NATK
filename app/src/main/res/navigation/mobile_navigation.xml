@@ -15,12 +15,29 @@
         android:id="@+id/navigation_collection"
         android:name="com.example.ar_natk.presentation.collection.CollectionFragment"
         android:label="@string/title_collection"
-        tools:layout="@layout/fragment_collection" />
+        tools:layout="@layout/fragment_collection">
+        <action
+            android:id="@+id/action_navigation_collection_to_fragmentCollectionItemInfo"
+            app:destination="@id/fragmentCollectionItemInfo" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_records"
         android:name="com.example.ar_natk.presentation.records.RecordsFragment"
         android:label="@string/title_records"
         tools:layout="@layout/fragment_records" />
+
+    <fragment
+        android:id="@+id/fragmentCollectionItemInfo"
+        android:name="com.example.ar_natk.presentation.collectioninfo.CollectionItemInfoFragment"
+        android:label="@string/title_collection_item_info"
+        tools:layout="@layout/fragment_collection_item_info">
+        <argument
+            android:name="ItemId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentCollectionItemInfo_to_navigation_collection"
+            app:destination="@id/navigation_collection" />
+    </fragment>
 
 </navigation>

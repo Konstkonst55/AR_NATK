@@ -17,6 +17,7 @@
     <color name="background_alpha">#80000000</color>
     <!--accent-->
     <color name="blue_accent">#006EA6</color>
+    <color name="blue_accent_ripple">#4D006EA6</color>
     <color name="purple_accent">#7B40A9</color>
     <color name="purple_accent_ripple">#4D7B40A9</color>
     <color name="green_accent">#00A64C</color>

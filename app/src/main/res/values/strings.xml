@@ -9,7 +9,7 @@
     <string name="b_add">Добавить</string>
     <string name="cd_logo">logo</string>
     <string name="t_number_1">1</string>
-    <string name="fab_pon">Понятно</string>
+    <string name="b_pon">Понятно</string>
     <string name="t_step_1">Ищи метки по всему колледжу</string>
     <string name="hint_name">Имя</string>
     <string name="t_number_2">2</string>
@@ -26,6 +26,7 @@
     <string name="title_sharp">#</string>
     <string name="title_user_name">Имя пользователя</string>
     <string name="title_score">Количество</string>
+    <string name="title_collection_item_info">Информация</string>
     <string name="t_congratulate">Поздравляем!</string>
     <string name="t_all_collection">Вы собрали всю коллекцию</string>
     <string name="cd_all_collection">icon OK</string>
@@ -35,4 +36,5 @@
     <string name="cd_link">Open Wikipedia</string>
     <string name="cd_controller">Controller</string>
     <string name="cd_open_ondoarding">Open on boarding</string>
+    <string name="tooltip_open_wiki">Открыть Википедию</string>
 </resources>

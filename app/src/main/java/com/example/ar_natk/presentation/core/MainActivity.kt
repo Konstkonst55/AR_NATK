@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
@@ -16,6 +17,7 @@ import com.example.ar_natk.data.storage.FirstRunStorage
 import com.example.ar_natk.data.storage.UserDataStorage
 import com.example.ar_natk.databinding.ActivityMainBinding
 import com.example.ar_natk.presentation.auth.AuthActivity
+import com.example.ar_natk.presentation.collection.CollectionFragmentDirections
 import com.example.ar_natk.presentation.onboard.OnboardActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,6 +70,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupAppBar() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -79,5 +90,11 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    fun navigateCollectionToInfo(id: Int) {
+        navController.navigate(
+            CollectionFragmentDirections.actionNavigationCollectionToFragmentCollectionItemInfo(id)
+        )
     }
 }
