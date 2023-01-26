@@ -44,11 +44,8 @@ class CollectionFragment : Fragment() {
     }
 
     private fun checkFullCollection() {
-        if (sortedItemCollectionList.size == UserDataStorage(requireContext()).collection?.size) {
-            binding.iCongratulate.root.visibility = View.VISIBLE
-        } else {
-            binding.iCongratulate.root.visibility = View.GONE
-        }
+        binding.iCongratulate.root.visibility =
+            if (itemCount == fullItemCount) View.VISIBLE else View.GONE
     }
 
     private fun setAdapter() {
