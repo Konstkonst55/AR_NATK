@@ -206,7 +206,7 @@ class CameraFragment :
 
                     Snackbar.make(
                         arFragment.requireView(),
-                        "Tag ${currentItemCollection?.targetImageTag} detected",
+                        "Объект ${currentItemCollection?.infoHeader}",
                         Snackbar.LENGTH_LONG
                     ).show()
                 }
@@ -238,9 +238,10 @@ class CameraFragment :
                     .exceptionally {
                         Snackbar.make(
                             arFragment.requireView(),
-                            "Unable to load model",
+                            "Не удалось загрузить модель",
                             Snackbar.LENGTH_LONG
                         ).show()
+                        Log.i(Constants.LOG_APP, it.message.toString())
                         null
                     }
             }
