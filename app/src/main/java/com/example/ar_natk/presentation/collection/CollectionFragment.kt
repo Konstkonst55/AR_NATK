@@ -44,8 +44,9 @@ class CollectionFragment : Fragment() {
     }
 
     private fun checkFullCollection() {
-        binding.iCongratulate.root.visibility =
+        binding.incCongratulate.root.visibility =
             if (itemCount == fullItemCount) View.VISIBLE else View.GONE
+        binding.incEmptyError.root.visibility = if (itemCount == 0) View.VISIBLE else View.GONE
     }
 
     private fun setAdapter() {

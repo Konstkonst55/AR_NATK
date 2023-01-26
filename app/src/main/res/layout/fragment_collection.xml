@@ -8,7 +8,7 @@
     android:background="@color/dark_main">
 
     <include
-        android:id="@+id/iCongratulate"
+        android:id="@+id/inc_congratulate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/congratulate_layout"
@@ -19,6 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <include
+        android:id="@+id/incEmptyError"
+        layout="@layout/empty_error_layout"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvItems"
         android:layout_width="match_parent"
@@ -26,7 +31,7 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="12dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/iCongratulate"
+        app:layout_constraintTop_toBottomOf="@id/inc_congratulate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

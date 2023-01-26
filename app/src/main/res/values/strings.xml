@@ -37,4 +37,6 @@
     <string name="cd_controller">Controller</string>
     <string name="cd_open_ondoarding">Open on boarding</string>
     <string name="tooltip_open_wiki">Открыть Википедию</string>
+    <string name="cd_empty">Empty</string>
+    <string name="t_empty_error">Здесть пусто :(</string>
 </resources>
